@@ -20,6 +20,7 @@ type UserReq struct {
 }
 
 type UserRes struct {
+	ID        uint      `json:"id"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	CreatedAT time.Time `json:"created_at"`
@@ -36,6 +37,7 @@ func (u *UserReq) ToUser() *User {
 
 func (ur *User) ToUserRes() *UserRes {
 	return &UserRes{
+		ID:        ur.ID,
 		Name:      ur.Name,
 		Email:     ur.Email,
 		CreatedAT: ur.CreatedAt,
