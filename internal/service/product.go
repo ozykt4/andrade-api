@@ -37,7 +37,7 @@ func (ps *ProductService) CreateProduct(productReq *model.ProductReq) *model.Res
 func (ps *ProductService) FindAllProducts() *model.Response {
 	products, err := ps.repo.FindAll()
 	if err != nil {
-		return model.NewErrorResponse(err, 404)
+		return model.NewErrorResponse(err, 500)
 	}
 
 	productsRes := []*model.ProductRes{}
