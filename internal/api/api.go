@@ -42,19 +42,23 @@ func Run(host, port string) error {
 
 	if err := db.AutoMigrate(
 		&model.Product{},
+		&model.User{},
 	); err != nil {
 		return err
 	}
 
 	// Loads all repositories
 	productRepo := repository.NewProductRepository(db)
+	userRepo := repository.NewUserRepository(db)
 
 	// Loads all services
 
 	productService := service.NewProductService(productRepo)
+	userService := service.NewUserService(userRepo)
 
 	// Loads all handlers
 	productHandler := handler.NewProductHandler(productService)
+	userHandler := handler.NewUserHandler(userService)
 
 	// // Setup middlewares
 	// auth := middleware.NewAuthMiddlware(authConfig,
@@ -73,6 +77,7 @@ func Run(host, port string) error {
 	// Setup routes
 	router.SetupRouter(app,
 		productHandler.Routes(),
+		userHandler.Routes(),
 	)
 
 	c := make(chan os.Signal, 1)
